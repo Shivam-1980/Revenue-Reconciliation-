@@ -1,0 +1,177 @@
+import math
+import sys
+from pathlib import Path
+import pytest
+
+DATA = Path(__file__).resolve().parents[1] / "app" / "data"
+pytestmark = pytest.mark.skipif(not (DATA / "transactions" / "latest_transactions.csv").exists(), reason="Clean-upload release intentionally ships without historical source files; source-specific tests require fixtures")
+
+BACKEND = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BACKEND))
+
+from app.api.dashboard import summary
+from app.api.reconciliation import load_result
+from app.services.reconciliation_engine import aggregate_by_transaction_type, load_social_security_counts, load_passbook_printing_counts, _single_calendar_month_from_transactions, social_security_supplement_active, passbook_supplement_active, _pmjjby_rate_for_period
+
+
+def test_dashboard_core_financial_controls_balance():
+    s = summary()
+    assert s["successful_transactions"] == 306035
+    assert s["transaction_amount"] == 2303447752.0
+    assert s["expected_commission_comparable"] == 934148.07
+    assert s["actual_comparable_commission"] == 932891.30
+    assert s["comparable_variance"] == 1256.77
+    assert math.isclose(
+        s["expected_commission_comparable"] - s["actual_comparable_commission"],
+        s["comparable_variance"],
+        abs_tol=0.005,
+    )
+
+
+def test_count_control_is_explicit_and_not_population_forced():
+    s = summary()
+    assert s["count_matched_groups"] == 2627
+    assert s["count_mismatch_groups"] == 1836
+    assert s["count_control_groups"] == 4463
+    assert s["reconciliation_rate"] == 58.86
+    assert s["count_matched_groups"] + s["count_mismatch_groups"] == s["count_control_groups"]
+
+
+def test_missing_commission_is_not_count_mismatch_alias():
+    s = summary()
+    assert s["missing_commission_groups"] == 30
+    assert s["missing_commission_groups"] != s["count_mismatch_groups"]
+
+
+def test_transaction_type_control_uses_overlapping_bc_population():
+    r = load_result()
+    df = aggregate_by_transaction_type(r)
+    row = df[df["transaction_type"].eq("MONEY TRANSFER")].iloc[0]
+    assert int(row["successful_transactions"]) == 68882
+    assert float(row["report_base"]) == 62785.0
+    assert float(row["count_variance"]) == 6097.0
+    assert float(row["report_base"]) == float(row["bc_report_base_overlap"])
+
+
+def test_all_transaction_types_are_exposed():
+    df = aggregate_by_transaction_type(load_result())
+    assert len(df) >= 1
+    assert df["transaction_type"].notna().all()
+    assert "MONEY TRANSFER" in set(df["transaction_type"])
+    assert "AEPS ONUS WITHDRAWAL" in set(df["transaction_type"])
+    assert "INITIAL DEPOSIT" in set(df["transaction_type"])
+    assert "AEPS ONUS DEPOSIT" in set(df["transaction_type"])
+    assert "ATM ONUS WITHDRAWAL" in set(df["transaction_type"])
+
+
+def test_pmjjby_pmsby_august_supplement_is_reconciled_with_sbi_rules():
+    df = aggregate_by_transaction_type(load_result())
+    pmj = df[df["transaction_type"].eq("PMJJBY")].iloc[0]
+    pms = df[df["transaction_type"].eq("PMSBY")].iloc[0]
+    # August is Q1 for PMJJBY: ₹30/enrollment. PMSBY: ₹1/enrollment.
+    assert int(pmj["successful_transactions"]) == 3414
+    assert float(pmj["expected_commission"]) == 102420.0
+    assert float(pmj["report_base"]) == 3415.0
+    assert float(pmj["financial_gap"]) == -30.0
+    assert int(pms["successful_transactions"]) == 5394
+    assert float(pms["expected_commission"]) == 5394.0
+    assert float(pms["report_base"]) == 5395.0
+    assert float(pms["financial_gap"]) == -1.0
+
+
+def test_passbook_rule_master_contains_confirmed_rural_urban_rates():
+    import pandas as pd
+    from pathlib import Path
+    rm = pd.read_csv(Path(BACKEND) / "app" / "data" / "rate_master" / "latest_rate_master.csv")
+    p = rm[rm["transaction_type"].eq("PASSBOOK PRINTING")]
+    rates = dict(zip(p["channel"], p["rate"]))
+    assert float(rates["RURAL"]) == 5.0
+    assert float(rates["URBAN"]) == 6.0
+    assert p["sub_category"].astype(str).str.contains("max 5 times per a/c per month", case=False, na=False).all()
+
+
+def test_passbook_printing_count_control_uses_csp_area_and_preserves_cap_evidence_limit():
+    df = aggregate_by_transaction_type(load_result())
+    row = df[df["transaction_type"].eq("PASSBOOK PRINTING")].iloc[0]
+    assert int(row["successful_transactions"]) == 14094
+    assert float(row["report_base"]) == 14052.0
+    assert float(row["count_variance"]) == 42.0
+    assert int(row["bc_overlap_csp_count"]) == 99
+    assert row["passbook_cap_status"] == "NOT_VERIFIABLE_ACCOUNT_LEVEL_SOURCE"
+    # The CSP-wise source has no account IDs, so the 5-print/account/month cap
+    # is not settlement-verifiable. Its uncapped expected amount stays provisional.
+    assert math.isnan(float(row["verified_expected_commission"]))
+    assert math.isnan(float(row["financial_gap"]))
+    assert float(row["expected_commission"]) == 71453.0
+    assert float(row["actual_commission"]) == 71240.0
+    assert float(row["passbook_revenue_difference_bank_minus_expected"]) == -213.0
+    assert float(row["passbook_count_difference"]) == 42.0
+
+
+def test_passbook_actuals_are_sourced_from_bc_report_and_rule_ids_are_sbi_master_ids():
+    df = aggregate_by_transaction_type(load_result())
+    row = df[df["transaction_type"].eq("PASSBOOK PRINTING")].iloc[0]
+    assert float(row["report_base"]) == 14052.0
+    assert float(row["actual_commission"]) == 71240.0
+    assert float(row["expected_commission"]) == 71453.0
+    assert float(row["passbook_revenue_difference_bank_minus_expected"]) == -213.0
+    r = load_result()
+    pb = r[r["transaction_type"].eq("PASSBOOK PRINTING")]
+    assert set(pb["commission_rule_id"].dropna()) == {"CM041-RURAL", "CM041-URBAN"}
+    assert int((pb.get("passbook_control_validation_status", "NO_CONTROL_ROW").eq("MATCH")).sum()) == 99
+
+
+def test_settlement_bridge_is_separate_from_transaction_commission_variance():
+    s = summary()
+    assert s["bc_reported_gross_commission"] == 8269340.64
+    assert s["penalty_amount"] == 31000.0
+    assert s["bc_net_payable"] == 8238340.64
+    assert s["bc_net_payable"] == round(s["bc_reported_gross_commission"] - s["penalty_amount"], 2)
+    assert s["bc_net_payable"] != s["comparable_variance"]
+
+
+def test_pmjjby_pmsby_authoritative_workbook_totals():
+    from app.services.reconciliation_engine import aggregate_social_security_reconciliation
+    out=aggregate_social_security_reconciliation(load_result())
+    assert out["total"]["source_transactions"] == 8808
+    assert out["total"]["bc_transactions"] == 8825
+    assert out["total"]["expected_commission"] == 107814.0
+    assert out["total"]["actual_commission"] == 107889.0
+    assert out["total"]["commission_difference_bc_minus_expected"] == 75.0
+    assert out["total"]["bc_excess_csp_count"] == 4
+    assert out["total"]["matched_csp_count"] == 533
+
+
+def test_product_wise_commission_is_directly_aggregated_from_bc_source():
+    import pandas as pd
+    from pathlib import Path
+    s = summary()
+    cm = pd.read_csv(Path(BACKEND) / "app" / "data" / "commissions" / "latest_commission.csv", low_memory=False)
+    expected = cm.groupby(cm["transaction_type"].astype(str).str.strip().str.upper())["actual_commission"].sum()
+    rows = {r["product"]: r for r in s["product_wise_commission"]}
+    assert len(rows) == len(expected)
+    assert math.isclose(sum(float(r["commission"]) for r in rows.values()), float(cm["actual_commission"].sum()), abs_tol=0.01)
+    assert math.isclose(float(rows["PASSBOOK PRINTING"]["commission"]), 71240.0, abs_tol=0.01)
+    assert math.isclose(float(s["product_commission_gross"]), 8269340.64, abs_tol=0.01)
+    assert math.isclose(float(s["product_commission_penalty"]), 31000.0, abs_tol=0.01)
+    assert math.isclose(float(s["product_commission_total_after_penalty"]), 8238340.64, abs_tol=0.01)
+    assert rows["PENALTY FOR CSP INACTIVITY"]["is_penalty"] is True
+
+
+def test_supplemental_controls_are_period_bound_not_august_hardcoded():
+    import pandas as pd
+    tx_sep = pd.DataFrame({"transaction_date": pd.to_datetime(["2026-09-01", "2026-09-30"])})
+    assert _single_calendar_month_from_transactions(tx_sep) == "2026-09"
+    ss = load_social_security_counts()
+    pb = load_passbook_printing_counts()
+    assert not social_security_supplement_active(ss, "2026-09")
+    assert not passbook_supplement_active(pb, "2026-09")
+    assert not social_security_supplement_active(ss, "2026-08")  # no period-specific supplement bundled
+    assert passbook_supplement_active(pb, "2026-08")
+
+
+def test_pmjjby_commission_is_period_driven_for_all_quarters():
+    assert _pmjjby_rate_for_period("AUGUST 2026") == 30.0
+    assert _pmjjby_rate_for_period("SEPTEMBER 2026") == 22.5
+    assert _pmjjby_rate_for_period("DECEMBER 2026") == 15.0
+    assert _pmjjby_rate_for_period("MARCH 2027") == 7.5

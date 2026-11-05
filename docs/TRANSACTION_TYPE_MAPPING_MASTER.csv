@@ -1,0 +1,24 @@
+source_transaction_type,normalized_transaction_type,bc_transaction_type,mapping_rule,effective_from,effective_to,status
+Money Transfer,MONEY TRANSFER,MONEY TRANSFER,Exact operational mapping,2025-04-01,,EXACT
+AEPS ONUS Withdrawal,AEPS ONUS WITHDRAWAL,AEPS ONUS WITHDRAWAL,Exact operational mapping,2025-04-01,,EXACT
+AEPS ONUS Deposit,AEPS ONUS DEPOSIT,AEPS ONUS DEPOSIT,Exact operational mapping,2025-04-01,,EXACT
+Withdrawal,WITHDRAWAL,CASH WITHDRAWAL,Operational label to BC reporting label,2025-04-01,,PROBABLE
+AEPS OFFUS Withdrawal,AEPS OFFUS WITHDRAWAL,AEPS ACQUIRER WITHDRAWAL,Operational label to BC reporting label,2025-04-01,,PROBABLE
+ATM Onus Withdrawal,ATM ONUS WITHDRAWAL,DEBIT CARD ONUS,Operational label to BC reporting label,2025-04-01,,PROBABLE
+ATM Offus Withdrawal,ATM OFFUS WITHDRAWAL,DEBIT CARD OFFUS,Operational label to BC reporting label,2025-04-01,,PROBABLE
+ATM DEPOSIT,ATM DEPOSIT,MATM ONUS DEPOSIT,Operational label to BC reporting label,2025-04-01,,PROBABLE
+ATM FUNDSTRANSFER,ATM FUNDSTRANSFER,MATM ONUS FUNDSTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,PROBABLE
+DEPOSIT,DEPOSIT,CASH DEPOSIT,Operational label to BC reporting label,2025-04-01,,PROBABLE
+FUND TRANSFER,FUND TRANSFER,FUNDTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,EXACT
+IMPS FUND TRANSFER,IMPS FUND TRANSFER,IMPS FUNDTRANFER,Operational label to BC reporting label,2025-04-01,,EXACT
+IMPS FUNDTRANSFER,IMPS FUNDTRANSFER,IMPS FUNDTRANFER,Operational label to BC reporting label,2025-04-01,,EXACT
+IMPS MONEY TRANSFER,IMPS MONEY TRANSFER,IMPS MONEY TRANSFER,Exact operational mapping,2025-04-01,,EXACT
+STDR OPEN,STDR OPEN,STDR OPEN,Exact operational mapping,2025-04-01,,EXACT
+YONO WITHDRAWAL,YONO WITHDRAWAL,YONO CASH,Operational label to BC reporting label,2025-04-01,,EXACT
+BHARAT BILL PAYMENTS,BHARAT BILL PAYMENTS,BBPS - ELECTRICITY,Operational label to current BC category; biller/CCF still required for financial settlement,2025-04-01,,CONDITIONAL
+LOAN DEPOSIT,LOAN DEPOSIT,LOAN DEPOSIT,Exact operational mapping,2025-04-01,,EXACT
+AEPS ONUS FUND TRANSFER,AEPS ONUS FUND TRANSFER,AEPS ONUS FUNDTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,EXACT
+PPF SSA TXN,PPF SSA TXN,,No approved BC transaction-type mapping currently available,2025-04-01,,UNMAPPED
+AEPS OFFUS Fund Transfer,AEPS OFFUS FUND TRANSFER,,No approved BC transaction-type mapping currently available,2025-04-01,,UNMAPPED
+Initial deposit,INITIAL DEPOSIT,,Amount-based classification into approved account-opening slabs; evidence still required,2025-04-01,,CONDITIONAL
+Customer enroll for SSS,CUSTOMER ENROLL FOR SSS,,Amount/month identifies product candidate; eligibility evidence required,2025-04-01,,CONDITIONAL

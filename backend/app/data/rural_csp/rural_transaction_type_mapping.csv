@@ -1,0 +1,50 @@
+transaction_type,count_as_txn,reason
+AADHAAR SEED,Y,Transaction / service count
+ACC OPEN WITH EKYC AND INIT DEP 1000 OR ABOVE,Y,Transaction / service count
+ACC OPEN WITH EKYC AND INIT DEP BELOW 100,Y,Transaction / service count
+ACC OPEN WITH EKYC AND INIT DEP BTWN 100 AND 499,Y,Transaction / service count
+ACC OPEN WITH EKYC AND INIT DEP BTWN 500 AND 999,Y,Transaction / service count
+ACCOUNT REKYC,Y,Transaction / service count
+ADDITIONAL INCENTIVE - ASPIRATIONAL LWE DISTT,N,Incentive line (would double count)
+ADDITIONAL INCENTIVE ON AEPS CASH TRANSACTIONS,N,Incentive line (double counts AEPS txns)
+AEPS ACQUIRER WITHDRAWAL,Y,Transaction / service count
+AEPS MINI STATEMENT - ONUS,Y,Transaction / service count
+AEPS ONUS DEPOSIT,Y,Transaction / service count
+AEPS ONUS FUNDTRANSFER - HOME,Y,Transaction / service count
+AEPS ONUS WITHDRAWAL,Y,Transaction / service count
+AVERAGE BALANCE MAINTENANCE,N,"Average balance amount, not a transaction count"
+BBPS - ELECTRICITY,Y,Transaction / service count
+CASH DEPOSIT,Y,Transaction / service count
+CASH WITHDRAWAL,Y,Transaction / service count
+CHEQUE BOOK ISSUE REQUEST,Y,Transaction / service count
+DEBIT CARD BLOCKING,Y,Transaction / service count
+DEBIT CARD OFFUS,Y,Transaction / service count
+DEBIT CARD ONUS,Y,Transaction / service count
+DFS PRIORITIES INCENTIVE,N,Incentive line
+EKYC CERTIFICATE GENERATION FOR CKYC,Y,Transaction / service count
+FUNDTRANSFER - HOME,Y,Transaction / service count
+GREEN PIN GENERATION,Y,Transaction / service count
+IMPS FUNDTRANFER,Y,Transaction / service count
+IMPS MONEY TRANSFER,Y,Transaction / service count
+LAKSHYA DEPOSIT MOBILISATION CAMPAIGN INCENTIVE,N,Incentive line (double counts deposits)
+LOAN COLLECTION IN STANDARD AGRI ASSETS,Y,Transaction / service count
+LOAN DEPOSIT,Y,Transaction / service count
+MATM CASH TRANSACTIONS INCENTIVE,N,Incentive line (double counts MATM txns)
+MATM MINI STATEMENT,Y,Transaction / service count
+MATM ONUS DEPOSIT,Y,Transaction / service count
+MATM ONUS FUNDSTRANSFER - HOME,Y,Transaction / service count
+MONEY TRANSFER,Y,Transaction / service count
+NEFT,Y,Transaction / service count
+P SEGMENT GOLD LOAN LEAD GENERATION,Y,Transaction / service count
+PASSBOOK PRINTER COST REIMBURSEMENT,N,"Reimbursement, not a transaction"
+PASSBOOK PRINTING,Y,Transaction / service count
+PENALTY FOR CSP INACTIVITY,N,"Penalty, not a transaction"
+PERSONAL LOAN LEAD GENERATION,Y,Transaction / service count
+PMJJBY,Y,Transaction / service count
+PMSBY,Y,Transaction / service count
+RD OPEN,Y,Transaction / service count
+RURAL COMMISSION,N,The commission being reconciled
+STDR OPEN,Y,Transaction / service count
+TAB TRANSACTIONS INCENTIVE,N,Incentive line
+WOMEN CSP INCENTIVE,N,Incentive line (double counts txns)
+YONO CASH,Y,Transaction / service count

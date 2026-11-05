@@ -1,0 +1,30 @@
+# Caddy: automatic HTTPS (Let's Encrypt) in front of the app. Replace eko.example.com with your server's DNS name.
+# Backend runs with EKO_BEHIND_PROXY=true and APP_ENV=hosted; the built dashboard (frontend/dist) is served as static files.
+eko.example.com {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'"
+		-Server
+	}
+
+	handle /api/* {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle /health {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle {
+		root * /srv/eko/frontend/dist
+		try_files {path} /index.html
+		file_server
+	}
+	request_body {
+		max_size 60MB
+	}
+}

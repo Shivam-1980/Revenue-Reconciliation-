@@ -1,0 +1,60 @@
+# ---- Secrets and keys (never upload) ----
+.env
+.env.*
+!.env.example
+!.env.hosted.example
+!.env.platform.example
+local_secrets.json
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+certs/
+
+# ---- Runtime data of this installation (database, uploaded Excel files, results) ----
+/backend/data/
+backend/app/data/transactions/
+backend/app/data/commissions/
+backend/app/data/processing/
+backend/app/data/reconciliation_history/
+backend/app/data/csp_geography/
+backend/app/data/audit/
+backend/app/data/reconciliation_cache.csv
+backend/app/data/reconciliation_cache_meta.json
+# generated "latest_*" files are period data; only the permanent rate master and rule workbook are kept
+backend/app/data/*/latest_*
+!backend/app/data/rate_master/latest_*
+!backend/app/data/expected_commission_rule/latest_*
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+*.ekobak
+pgdata/
+backups/
+dev_outbox/
+.eko_reconciliation_initialized_version
+.access_restricted
+pii_masked_v1.txt
+migrated_to_postgresql.txt
+
+# ---- Logs and build leftovers ----
+*.log
+*.zip
+node_modules/
+dist/
+.vite/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# ---- Editor and system files ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Revenue Reconciliation | Eko × SBI</title>
+    <script>
+      (function () {
+        var mode = "light";
+        try { mode = localStorage.getItem("eko.ui.theme") || "light"; } catch (e) {}
+        var dark = mode === "dark" || (mode === "system" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"><div style="font-family:system-ui;padding:32px;color:#334155">Loading Revenue Reconciliation dashboard…</div></div>
+    <script>
+      window.addEventListener('error', function (event) {
+        var root = document.getElementById('root');
+        if (!root || root.querySelector('[data-frontend-error]')) return;
+        root.innerHTML = '<div data-frontend-error style="font-family:system-ui;max-width:900px;margin:40px auto;padding:24px;background:#fff;border:1px solid #fecaca;border-radius:12px;color:#7f1d1d"><h2>Frontend failed to load</h2><p>Open the frontend terminal and browser DevTools Console for the full error.</p><pre style="white-space:pre-wrap;background:#fff7f7;padding:12px;border-radius:8px"></pre></div>';
+        root.querySelector('pre').textContent = event.message || 'Unknown JavaScript loading error';
+      });
+      window.addEventListener('unhandledrejection', function (event) {
+        var root = document.getElementById('root');
+        if (!root || root.querySelector('[data-frontend-error]')) return;
+        root.innerHTML = '<div data-frontend-error style="font-family:system-ui;max-width:900px;margin:40px auto;padding:24px;background:#fff;border:1px solid #fecaca;border-radius:12px;color:#7f1d1d"><h2>Frontend request failed</h2><p>Open the browser DevTools Console for details.</p><pre style="white-space:pre-wrap;background:#fff7f7;padding:12px;border-radius:8px"></pre></div>';
+        root.querySelector('pre').textContent = String(event.reason || 'Unhandled promise rejection');
+      });
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

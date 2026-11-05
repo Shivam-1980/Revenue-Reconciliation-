@@ -1,0 +1,94 @@
+{
+  "transactions": null,
+  "commission": null,
+  "rate_master": {
+    "filename": "SBI_Expected_Commission_Rule.xlsx",
+    "sheet_name": "Consolidated Commission Master",
+    "rows": 150,
+    "rules": 150,
+    "source_rules": 157,
+    "transaction_types": 41,
+    "period_start": null,
+    "period_end": null,
+    "uploaded_at": null,
+    "sha256": null,
+    "batch_id": null,
+    "validation": {
+      "valid": true,
+      "rows": 71,
+      "rules": 157,
+      "transaction_rules": 120,
+      "pending_rules": 68,
+      "missing_columns": [],
+      "errors": [],
+      "warnings": [
+        "APY (ATAL PENSION YOJANA): rate range requires an approved selection rule (MAPPING TO CONFIRM - source states a \u20b960\u2013\u20b975 range but does not define which amount applies).",
+        "DEPOSIT IN LOAN ACCOUNT - UNMAPPED: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "INACTIVITY PENALTY: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "AVERAGE BALANCE MAINTENANCE: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "Legacy product-wise rule supplement retained 71 rule row(s) for BC product types absent from the consolidated SBI master; source statuses remain unchanged.",
+        "68 transaction rule row(s) are calculable but marked Mapping to confirm; they are provisional and cannot be used for final settlement.",
+        "26 transaction rule row(s) remain blocked because their source status is unresolved (To confirm / Value missing / other)."
+      ],
+      "selected_sheet": "Consolidated Commission Master",
+      "available_sheets": [
+        "Consolidated Commission Master",
+        "Slabs & Incentive Matrices"
+      ],
+      "source_workbook_type": "SBI structured commission/slab master",
+      "overlapping_slab_pairs": 0,
+      "parser_version": "62.6.216-ui-security-speed"
+    }
+  },
+  "csp_geography": null,
+  "rural_csp": null,
+  "social_security_counts": null,
+  "passbook_printing_counts": null,
+  "dfs_incentive": null,
+  "women_csp_roster": null,
+  "tab_incentive": null,
+  "matm_incentive": null,
+  "loan_lead_generation": null,
+  "expected_commission_rule": {
+    "filename": "SBI_Expected_Commission_Rule.xlsx",
+    "sheet_name": "Consolidated Commission Master",
+    "rows": 71,
+    "period_start": null,
+    "period_end": null,
+    "uploaded_at": null,
+    "sha256": null,
+    "available_sheets": [
+      "Consolidated Commission Master",
+      "Slabs & Incentive Matrices"
+    ],
+    "validation": {
+      "valid": true,
+      "rows": 71,
+      "rules": 157,
+      "transaction_rules": 120,
+      "pending_rules": 68,
+      "missing_columns": [],
+      "errors": [],
+      "warnings": [
+        "APY (ATAL PENSION YOJANA): rate range requires an approved selection rule (MAPPING TO CONFIRM - source states a \u20b960\u2013\u20b975 range but does not define which amount applies).",
+        "DEPOSIT IN LOAN ACCOUNT - UNMAPPED: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "INACTIVITY PENALTY: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "AVERAGE BALANCE MAINTENANCE: no numeric approved rate was found; average-per-enrollment is not used as a substitute.",
+        "Legacy product-wise rule supplement retained 71 rule row(s) for BC product types absent from the consolidated SBI master; source statuses remain unchanged.",
+        "68 transaction rule row(s) are calculable but marked Mapping to confirm; they are provisional and cannot be used for final settlement.",
+        "26 transaction rule row(s) remain blocked because their source status is unresolved (To confirm / Value missing / other)."
+      ],
+      "selected_sheet": "Consolidated Commission Master",
+      "available_sheets": [
+        "Consolidated Commission Master",
+        "Slabs & Incentive Matrices"
+      ],
+      "source_workbook_type": "SBI structured commission/slab master",
+      "overlapping_slab_pairs": 0
+    },
+    "rules": 150,
+    "source_rules": 157
+  },
+  "active_batch_id": null,
+  "upload_attempt_errors": {}
+}

@@ -1,0 +1,19 @@
+# Pinned to the versions the backend test suite was verified with (Python 3.10).
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+pandas==2.3.3
+numpy==2.2.6
+openpyxl==3.1.5
+python-calamine==0.8.3
+python-multipart==0.0.32
+pgserver==0.1.4
+cryptography==50.0.2
+pydantic==2.14.1
+python-dotenv==1.2.4
+
+SQLAlchemy==2.0.55
+alembic==1.20.1
+psycopg[binary]==3.3.6
+authlib==1.9.1
+httpx==0.28.1
+itsdangerous==2.2.0

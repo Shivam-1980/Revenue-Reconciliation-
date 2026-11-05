@@ -1,0 +1,44 @@
+
+/* ---- hand-written dark tokens and third-party pieces (appended by the generator) ---- */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --brand:#0d8077;--brand-strong:#0b6c64;--brand-soft:rgba(20,184,166,.16);
+  --shadow-1:0 1px 2px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.35);
+  --shadow-2:0 8px 24px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.4);
+  --ring:0 0 0 3px rgba(45,212,191,.4);
+  --muted:#9aa7b8;--chart-text:#9aa7b8;--chart-grid:#2a3240;
+}
+:root[data-theme="dark"] body{background:#0a0d12;color:#e1e7f0}
+:where(:root[data-theme="dark"]) :where(*,::before,::after){border-color:#2a3240}
+:root[data-theme="dark"] input,:root[data-theme="dark"] select,:root[data-theme="dark"] textarea{color:#e1e7f0}
+:root[data-theme="dark"] ::placeholder{color:#7d8aa0;opacity:1}
+:root[data-theme="dark"] ::selection{background:rgba(45,212,191,.35);color:#fff}
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3a4456;background-clip:content-box}
+:root[data-theme="dark"] ::-webkit-scrollbar-corner,:root[data-theme="dark"] ::-webkit-scrollbar-track{background:transparent}
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover{background:#556079;background-clip:content-box}
+:root[data-theme="dark"] .enterprise-topbar{background:rgba(14,18,25,.92)}
+:root[data-theme="dark"] .enterprise-btn.primary{background:linear-gradient(180deg,#14a095,var(--brand))}
+:root[data-theme="dark"] .recharts-text,:root[data-theme="dark"] .recharts-cartesian-axis-tick-value{fill:var(--chart-text)}
+:root[data-theme="dark"] .recharts-cartesian-grid line{stroke:var(--chart-grid)}
+:root[data-theme="dark"] .recharts-default-tooltip{background:#171c25!important;border-color:#2a3240!important;color:#e1e7f0}
+:root[data-theme="dark"] .recharts-legend-item-text{color:#c3ccd9!important}
+:root[data-theme="dark"] .recharts-tooltip-cursor{fill:rgba(255,255,255,.06)}
+:root[data-theme="dark"] img[src*="logo"]{background:#fff;border-radius:6px;padding:2px}
+/* contrast fixes found when every page was checked in dark mode (V62.6.216) */
+:root[data-theme="dark"] .ux-more summary{color:#5fd1c4}
+:root[data-theme="dark"] .rr-seg button.on{color:#fff}
+:root[data-theme="dark"] .rr-seg button{color:#bac4d2}
+:root[data-theme="dark"] .rr-notice{background:#12181c;border-color:#2a3138;color:#bac4d2}
+:root[data-theme="dark"] .rr-notice.warn{background:#2b1e0e;border-color:#4a3418;color:#e9b38a}
+:root[data-theme="dark"] .rr-source-file{background:#111417;border-color:#2a2f36;color:#bac4d2}
+:root[data-theme="dark"] .rr-source-file strong{color:#d3dbe8}
+:root[data-theme="dark"] .rr-pager b{color:#d3dbe8}
+:root[data-theme="dark"] .rr-fbar{background:#14191e;border-color:#2a2f36}
+:root[data-theme="dark"] .rr-flabel,:root[data-theme="dark"] .rr-fsum{color:#b3bbc6}
+:root[data-theme="dark"] .rr-chips button{background:#1b2127;border-color:#2a2f36;color:#d7dde5}
+:root[data-theme="dark"] .rr-chips button em{color:#93a0ae}
+:root[data-theme="dark"] .rr-chips button.on{background:#0d8077;border-color:#0d8077;color:#fff}
+:root[data-theme="dark"] .rr-fgroup select{background:#1b2127;border-color:#2a2f36;color:#d7dde5}
+:root[data-theme="dark"] .rr-fsum{border-top-color:#2a2f36}
+:root[data-theme="dark"] .rr-chip-x{background:rgba(20,184,166,.16);border-color:#14706a;color:#7fe0d6}
+:root[data-theme="dark"] .rr-chips button:disabled{opacity:.4}

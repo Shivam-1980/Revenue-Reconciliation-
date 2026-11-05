@@ -1,0 +1,41 @@
+source_transaction_type,normalized_transaction_type,bc_transaction_type,mapping_rule,effective_from,effective_to,status,normalized_source_type,notes
+Money Transfer,MONEY TRANSFER,FUNDTRANSFER - NON HOME,"SBI schedule item 6.a: Remittance (Cash), non-home branch A/Cs. Bank payments for Sep and Aug 2026 follow this schedule to the rupee",2025-04-01,,EXACT,,"Bank-confirmed on Sep/Aug 2026 payments (95-97% of agents with equal counts match to the rupee). Home-branch Remittance (Transfer) is the separate FUND TRANSFER label."
+AEPS ONUS Withdrawal,AEPS ONUS WITHDRAWAL,AEPS ONUS WITHDRAWAL,Exact operational mapping,2025-04-01,,EXACT,,
+AEPS ONUS Deposit,AEPS ONUS DEPOSIT,AEPS ONUS DEPOSIT,Exact operational mapping,2025-04-01,,EXACT,,
+Withdrawal,WITHDRAWAL,CASH WITHDRAWAL,Operational label to BC reporting label,2025-04-01,,EXACT,,
+AEPS OFFUS Withdrawal,AEPS OFFUS WITHDRAWAL,AEPS ACQUIRER WITHDRAWAL,Operational label to BC reporting label,2025-04-01,,EXACT,,
+ATM Onus Withdrawal,ATM ONUS WITHDRAWAL,DEBIT CARD ONUS,Operational label to BC reporting label,2025-04-01,,EXACT,,
+ATM Offus Withdrawal,ATM OFFUS WITHDRAWAL,DEBIT CARD OFFUS,Operational label to BC reporting label,2025-04-01,,EXACT,,
+ATM DEPOSIT,ATM DEPOSIT,MATM ONUS DEPOSIT,Operational label to BC reporting label,2025-04-01,,EXACT,,
+ATM FUNDSTRANSFER,ATM FUNDSTRANSFER,MATM ONUS FUNDSTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,EXACT,,
+DEPOSIT,DEPOSIT,CASH DEPOSIT,Operational label to BC reporting label,2025-04-01,,EXACT,,
+FUND TRANSFER,FUND TRANSFER,FUNDTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,EXACT,,
+IMPS FUND TRANSFER,IMPS FUND TRANSFER,IMPS TRANSFER,Explicit IMPS fund-transfer operational label maps to SBI IMPS Transfer schedule; never infer Cash from amount,2025-04-01,,EXACT,,
+IMPS FUNDTRANSFER,IMPS FUNDTRANSFER,IMPS TRANSFER,Explicit IMPS fund-transfer operational label maps to SBI IMPS Transfer schedule; never infer Cash from amount,2025-04-01,,EXACT,,
+IMPS MONEY TRANSFER,IMPS MONEY TRANSFER,IMPS MONEY TRANSFER,Exact operational mapping,2025-04-01,,EXACT,,
+STDR OPEN,STDR OPEN,STDR OPEN,Exact operational mapping,2025-04-01,,EXACT,,
+YONO WITHDRAWAL,YONO WITHDRAWAL,YONO CASH,Operational label to BC reporting label,2025-04-01,,EXACT,,
+BHARAT BILL PAYMENTS,BHARAT BILL PAYMENTS,BBPS - ELECTRICITY,Operational label to current BC category; biller/CCF still required for financial settlement,2025-04-01,,CONDITIONAL,,
+LOAN DEPOSIT,LOAN DEPOSIT,LOAN DEPOSIT,Exact operational mapping,2025-04-01,,EXACT,,
+AEPS ONUS FUND TRANSFER,AEPS ONUS FUND TRANSFER,AEPS ONUS FUNDTRANSFER - HOME,Operational label to BC reporting label,2025-04-01,,EXACT,,
+PPF SSA TXN,PPF SSA TXN,,No approved BC transaction-type mapping currently available,2025-04-01,,UNMAPPED,,
+AEPS OFFUS Fund Transfer,AEPS OFFUS FUND TRANSFER,,No approved BC transaction-type mapping currently available,2025-04-01,,UNMAPPED,,
+Initial deposit,INITIAL DEPOSIT,,Amount-based classification into approved account-opening slabs; evidence still required,2025-04-01,,CONDITIONAL,,
+Customer enroll for SSS,CUSTOMER ENROLL FOR SSS,,Amount/month identifies product candidate; eligibility evidence required,2025-04-01,,CONDITIONAL,,
+"IMPS - CASH (UP TO RS. 5,000/-) NOTE-(RECOVERY FROM CUSTOMERS: 0.70% OF REMITTANCE AMOUNT, MIN RS.10/- AND MAX RS.35/-)",IMPS CASH,IMPS CASH,Exact SBI product label; distinct commission schedule,2025-04-01,,EXACT,,
+"IMPS (TRANSFER) (UP TO RS.30,000/-) (RECOVERY FROM CUSTOMERS: 0.70% OF REMITTANCE AMOUNT, MIN RS.10/- AND MAX RS.100/-)",IMPS TRANSFER,IMPS TRANSFER,Exact SBI product label; distinct commission schedule,2025-04-01,,EXACT,,
+IMPS - CASH,IMPS CASH,IMPS CASH,Exact SBI product variant; do not infer by amount,2025-04-01,,EXACT,,
+IMPS CASH,IMPS CASH,IMPS CASH,Exact SBI product variant; do not infer by amount,2025-04-01,,EXACT,,
+IMPS - TRANSFER,IMPS TRANSFER,IMPS TRANSFER,Exact SBI product variant; do not infer by amount,2025-04-01,,EXACT,,
+IMPS TRANSFER,IMPS TRANSFER,IMPS TRANSFER,Exact SBI product variant; do not infer by amount,2025-04-01,,EXACT,,
+SB Account Opening: With E-KYC,INITIAL DEPOSIT,ACCOUNT OPPENING (PMJDY),SBI initial-deposit amount slab plus explicit e-KYC evidence,2025-04-01,,CONDITIONAL,,
+Saving Account Opening: Without E-KYC (with OVD),INITIAL DEPOSIT,ACCOUNT OPPENING (PMJDY),SBI initial-deposit amount slab plus explicit OVD evidence,2025-04-01,,CONDITIONAL,,
+Opening of RD Accounts,RD OPEN,RD OPEN,Exact SBI rule; minimum deposit Rs 50,2025-04-01,,EXACT,,
+Opening STDR/FD,STDR OPEN,STDR OPEN,SBI deposit bounds and rural/urban percentage cap,2025-04-01,,CONDITIONAL,,
+IMPS FUNDTRANFER,,IMPS TRANSFER,,2025-04-01,,EXACT,IMPS FUNDTRANFER,Exact alias for the BC report typo (missing S in TRANSFER); joins to IMPS Transfer without fuzzy matching.
+REMITTANCE (CASH) (TRANSACTION AMOUNT RS.100 & ABOVE) (NON-HOME BRANCH A/CS) (NO RECOVERY FROM CUSTOMERS),REMITTANCE (CASH),FUNDTRANSFER - NON HOME,SBI schedule 6.a exact product mapping,2025-04-01,,EXACT,,SBI screenshot: non-home branch cash remittance; rural/urban rates differ
+REMITTANCE (CASH),REMITTANCE (CASH),FUNDTRANSFER - NON HOME,SBI schedule 6.a exact product mapping,2025-04-01,,EXACT,,Cash remittance is separate from home-branch transfer
+REMITTANCE CASH,REMITTANCE CASH,FUNDTRANSFER - NON HOME,SBI schedule 6.a exact product mapping,2025-04-01,,EXACT,,Cash remittance is separate from home-branch transfer
+REMITTANCE (TRANSFER) (HOME BRANCH A/CS) (NO RECOVERY FROM CUSTOMERS),REMITTANCE (TRANSFER),FUNDTRANSFER - HOME,SBI schedule 6.b exact product mapping,2025-04-01,,EXACT,,SBI screenshot: home-branch transfer; rural/urban rates differ
+REMITTANCE (TRANSFER),REMITTANCE (TRANSFER),FUNDTRANSFER - HOME,SBI schedule 6.b exact product mapping,2025-04-01,,EXACT,,Home-branch transfer is separate from non-home cash remittance
+REMITTANCE TRANSFER,REMITTANCE TRANSFER,FUNDTRANSFER - HOME,SBI schedule 6.b exact product mapping,2025-04-01,,EXACT,,Home-branch transfer is separate from non-home cash remittance
