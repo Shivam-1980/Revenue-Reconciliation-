@@ -37,7 +37,8 @@ _last = {"status": "never", "file": None, "at": None, "error": None}
 
 
 def backup_dir() -> Path:
-    path = Path(os.getenv("EKO_BACKUP_DIR", str(BACKEND / "data" / "backups")))
+    # an empty EKO_BACKUP_DIR= line (as in .env.example) must mean "use the default", not the current folder
+    path = Path(os.getenv("EKO_BACKUP_DIR", "").strip() or str(BACKEND / "data" / "backups"))
     path.mkdir(parents=True, exist_ok=True)
     return path
 
